@@ -1,60 +1,75 @@
 package com.example.assignmentone;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
- * MainActivity home screen. Part E: each button shows a Toast so we can
- * confirm all four click listeners fire. (Part G swaps the Toast for an
- * Intent to DetailActivity.)
+ * MainActivity is the CampusLife home screen. It shows the welcome banner and
+ * the four service buttons (Facilities, Events, Clubs, Support).
+ *
+ * Clicking a button starts {@link DetailActivity} and passes the selected
+ * topic's position in the arrays.xml arrays plus its display label through an
+ * explicit Intent.
  */
 public class MainActivity extends AppCompatActivity {
+
+    /** Intent extra key: position of the selected topic in the resource arrays. */
+    public static final String EXTRA_TOPIC_INDEX = "topic_index";
+    /** Intent extra key: service label shown in the detail screen header. */
+    public static final String EXTRA_TOPIC_LABEL = "topic_label";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Locate the four buttons declared in activity_main.xml.
+        // Locate the four service buttons declared in activity_main.xml.
         ImageButton btnFacilities = findViewById(R.id.btnFacilities);
         ImageButton btnEvents = findViewById(R.id.btnEvents);
         ImageButton btnClubs = findViewById(R.id.btnClubs);
         ImageButton btnSupport = findViewById(R.id.btnSupport);
 
-        // Facilities: show a short Toast when tapped.
+        // Attach a click listener to each button. The index matches the order
+        // of the items in the three arrays inside res/values/arrays.xml.
         btnFacilities.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Facilities clicked", Toast.LENGTH_SHORT).show();
+                openDetail(0, getString(R.string.label_facilities));
             }
         });
 
-        // Events: show a short Toast when tapped.
         btnEvents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Events clicked", Toast.LENGTH_SHORT).show();
+                openDetail(1, getString(R.string.label_events));
             }
         });
 
-        // Clubs: show a short Toast when tapped.
         btnClubs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Clubs clicked", Toast.LENGTH_SHORT).show();
+                openDetail(2, getString(R.string.label_clubs));
             }
         });
 
-        // Support: show a short Toast when tapped.
         btnSupport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Support clicked", Toast.LENGTH_SHORT).show();
+                openDetail(3, getString(R.string.label_support));
             }
         });
+    }
+
+    private void openDetail(int index, String label) {
+        // Explicit Intent: target the DetailActivity class directly.
+        Intent intent = new Intent(this, DetailActivity.class);
+        // Pass the unique identifier (array index) and the header label.
+        intent.putExtra(EXTRA_TOPIC_INDEX, index);
+        intent.putExtra(EXTRA_TOPIC_LABEL, label);
+        startActivity(intent);
     }
 }
