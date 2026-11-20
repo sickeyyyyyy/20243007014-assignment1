@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Detail screen.
+    Header: campus banner photo with the selected service icon on the left and
+    the service label on the right. Body: a scrollable section title and the
+    long content block, both populated by DetailActivity from arrays.xml.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <!-- Header: banner photo, service icon left, service label right. -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/detailBanner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/img_main_banner" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="@dimen/screen_padding">
+
+            <ImageView
+                android:id="@+id/detailIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/app_name" />
+
+            <TextView
+                android:id="@+id/detailHeaderTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/screen_padding"
+                android:gravity="center"
+                android:text="@string/detail_placeholder_title"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/detail_header_title_text" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- Scrollable body: section heading followed by the detail text. -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/screen_padding">
+
+            <TextView
+                android:id="@+id/detailTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/detail_placeholder_title"
+                android:textColor="@color/detail_title"
+                android:textStyle="bold"
+                android:textSize="@dimen/detail_heading_text"
+                android:paddingBottom="@dimen/cell_spacing" />
+
+            <TextView
+                android:id="@+id/detailContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/detail_placeholder_content"
+                android:textColor="@color/detail_content"
+                android:textSize="@dimen/detail_content_text" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
